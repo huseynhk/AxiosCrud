@@ -4,7 +4,7 @@ import { Modal, Form, Button } from "react-bootstrap";
 import { useGlobalContext } from "../contexts/GlobalContext";
 
 const EditUser = () => {
-  const { isModalOpen, closeModal, editedItem } = useGlobalContext();
+  const { isModalOpen, editedItem, closeModal } = useGlobalContext();
   const [editedUser, setEditedUser] = useState(editedItem);
 
   const handleInputChange = (event) => {

@@ -6,10 +6,20 @@ import { ROUTER } from "../constant/Router";
 import { DeleteUser } from "../api/deleteRequest";
 import { toast } from "react-toastify";
 import { useGlobalContext } from "../contexts/GlobalContext";
+import DeleteModal from "./DeleteModal";
 
 const Home = () => {
-  const { isModalOpen, editedItem, openModal } = useGlobalContext();
-  const [users, setUsers] = useState([]);
+  const {
+    isModalOpen,
+    editedItem,
+    openModal,
+    openDeleteModal,
+    closeDeleteModal,
+    users,
+    setUsers,
+    handleSortUsers,
+    handleSortUsersButtons,
+  } = useGlobalContext();
 
   const fetchUsers = async () => {
     const response = await GetUsers();
@@ -21,6 +31,11 @@ const Home = () => {
     toast.success("User deleted successfully!", {
       autoClose: 1000,
     });
+    closeDeleteModal();
+  };
+
+  const resetSortedData = async () => {
+    await fetchUsers();
   };
 
   useEffect(() => {
@@ -31,6 +46,43 @@ const Home = () => {
     <>
       <div className="d-flex justify-content-center align-items-center flex-column">
         <h1 className="text-white my-3">User List</h1>
+        <select className="px-6 py-2 mb-3 rounded" onChange={handleSortUsers}>
+          <option value="A-Z">A-Z Fullname</option>
+          <option value="Z-A">Z-A Fullname</option>
+          <option value="Low-to-High">Low To High Age</option>
+          <option value="High-to-Low">High To Low Age</option>
+        </select>
+
+        <div className="mb-3">
+          <button
+            className="btn btn-primary"
+            onClick={() => handleSortUsersButtons("A-Z")}
+          >
+            A-Z Fullname
+          </button>
+          <button
+            className="btn btn-info mx-2"
+            onClick={() => handleSortUsersButtons("Z-A")}
+          >
+            Z-A Fullname
+          </button>
+          <button
+            className="btn btn-success"
+            onClick={() => handleSortUsersButtons("Low-to-High")}
+          >
+            Low To High Age
+          </button>
+          <button
+            className="btn btn-warning mx-2"
+            onClick={() => handleSortUsersButtons("High-to-Low")}
+          >
+            High To Low Age
+          </button>
+          <button className="btn btn-danger" onClick={resetSortedData}>
+            Reset Sort
+          </button>
+        </div>
+
         <table className="table table-striped w-75 fs-4">
           <thead>
             <tr>
@@ -39,7 +91,7 @@ const Home = () => {
               <th>Age</th>
               <th>Email</th>
               <th>Position</th>
-              <th>Edits</th>
+              <th>Update</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -51,24 +103,24 @@ const Home = () => {
                 <td>{user.age}</td>
                 <td>{user.email}</td>
                 <td>{user.position}</td>
-                <td className="">
+                <td>
                   <button
                     className="btn btn-primary me-2"
                     onClick={() => openModal(user)}
                   >
-                    Edit
+                    Modal
                   </button>
                   <Link
                     className="btn btn-primary"
                     to={`${ROUTER.UpdateUser}/${user.id}`}
                   >
-                    Update
+                    Page
                   </Link>
                 </td>
                 <td>
                   <button
                     className="btn btn-danger me-2"
-                    onClick={() => deleteUser(user.id)}
+                    onClick={() => openDeleteModal(user)}
                   >
                     Delete
                   </button>
@@ -85,6 +137,7 @@ const Home = () => {
         </table>
 
         {editedItem && <EditUser />}
+        <DeleteModal deleteUser={deleteUser} />
       </div>
     </>
   );

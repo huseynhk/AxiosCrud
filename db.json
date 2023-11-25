@@ -3,37 +3,30 @@
     {
       "id": 1,
       "fullName": "Milan Baros",
-      "age": "44",
+      "age": "43",
       "email": "baros@gmail",
       "position": "Developer"
     },
     {
-      "id": 2,
-      "fullName": "Inter Boris",
-      "age": "55",
-      "email": "boris@gmail",
-      "position": "Designer"
+      "fullName": "Abbas",
+      "age": "35",
+      "email": "kim@1905",
+      "position": "Design",
+      "id": 2
     },
     {
-      "fullName": "Abbas",
-      "age": "44",
-      "email": "kim@1905",
-      "position": "dev",
+      "fullName": "Cabbar",
+      "age": "22",
+      "email": "bim@1905",
+      "position": "HR",
       "id": 3
     },
     {
-      "fullName": "Rasim",
-      "age": "33",
-      "email": "falkay@gm",
-      "position": "alim",
-      "id": 14
-    },
-    {
-      "fullName": "Osman",
-      "age": "33",
-      "email": "bim@1905",
-      "position": "Developer",
-      "id": 15
+      "fullName": "Babas",
+      "age": "54",
+      "email": "admin@1905",
+      "position": "Boss",
+      "id": 4
     }
   ]
 }
