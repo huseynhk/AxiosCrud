@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { GetSingleUser } from "../api/getRequest";
 import { useParams } from "react-router-dom";
 import { Card, Container, Row, Col } from "react-bootstrap";

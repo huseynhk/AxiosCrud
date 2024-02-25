@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  {  useEffect } from "react";
 import { GetUsers } from "../api/getRequest";
 import EditUser from "./EditUser";
 import { Link } from "react-router-dom";

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { EditUsers } from "../api/editRequst";
 import { Modal, Form, Button } from "react-bootstrap";
 import { useGlobalContext } from "../contexts/GlobalContext";
