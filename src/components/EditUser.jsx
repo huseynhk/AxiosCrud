@@ -1,10 +1,11 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { EditUsers } from "../api/editRequst";
 import { Modal, Form, Button } from "react-bootstrap";
 import { useGlobalContext } from "../contexts/GlobalContext";
 
 const EditUser = () => {
-  const { isModalOpen, editedItem, closeModal } = useGlobalContext();
+  const { isModalOpen, editedItem, closeModal, loading, setLoading } =
+    useGlobalContext();
   const [editedUser, setEditedUser] = useState(editedItem);
 
   const handleInputChange = (event) => {
@@ -16,8 +17,12 @@ const EditUser = () => {
   };
 
   const updateUser = async () => {
+    setLoading(true);
     await EditUsers(editedUser.id, editedUser);
-    closeModal();
+    setLoading(false);
+    setTimeout(() => {
+      closeModal();
+    }, 500);
   };
 
   return (
@@ -70,7 +75,7 @@ const EditUser = () => {
         </Modal.Body>
         <Modal.Footer className="d-flex justify-content-center align-items-center">
           <Button variant="primary" className="py-2 px-5" onClick={updateUser}>
-            Save User
+            {loading ? "Loading..." : "Submit"}
           </Button>
         </Modal.Footer>
       </Modal>

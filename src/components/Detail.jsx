@@ -1,4 +1,4 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { GetSingleUser } from "../api/getRequest";
 import { useParams } from "react-router-dom";
 import { Card, Container, Row, Col } from "react-bootstrap";
@@ -25,8 +25,8 @@ const Detail = () => {
               <Card.Body>
                 <Card.Text>
                   <div className="d-flex justify-content-center align-items-center flex-column">
-                    <Card.Title className="mb-2 text-muted fs-3">
-                      User Datas
+                    <Card.Title className="mb-3 text-muted fs-1">
+                      <strong>{user.fullName}`s   Datas</strong>
                     </Card.Title>
 
                     <div>

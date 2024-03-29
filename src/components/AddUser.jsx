@@ -1,4 +1,4 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { AddUsers } from "../api/addRequest";
 import { useNavigate } from "react-router-dom";
 import { ROUTER } from "../constant/Router";
@@ -14,16 +14,18 @@ const initialState = {
 };
 
 const AddUser = () => {
-  const { inputRef, setFocus } = useGlobalContext();
+  const { inputRef, setFocus, loading, setLoading } = useGlobalContext();
   const [newUser, setNewUser] = useState(initialState);
   const navigate = useNavigate();
 
   const handleAddUser = async () => {
+    setLoading(true);
     await AddUsers(newUser);
     setNewUser(initialState);
     toast.success("User added successfully!", {
       autoClose: 1000,
     });
+    setLoading(false);
     setTimeout(() => {
       navigate(ROUTER.Home);
     }, 1500);
@@ -41,7 +43,6 @@ const AddUser = () => {
     setFocus();
   }, []);
 
-
   return (
     <>
       <div className="d-flex justify-content-center align-items-center flex-column ">
@@ -56,7 +57,6 @@ const AddUser = () => {
               onChange={handleInputChange}
               className="p-2 w-75 my-2 border border-primary rounded"
               ref={inputRef}
-
             />
           </div>
           <div>
@@ -91,7 +91,7 @@ const AddUser = () => {
           </div>
 
           <Button className="my-3 px-5 py-2 fs-5" onClick={handleAddUser}>
-            Add User
+            {loading ? 'Loading...' : 'Submit'}
           </Button>
         </div>
       </div>

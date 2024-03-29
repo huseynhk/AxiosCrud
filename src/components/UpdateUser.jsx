@@ -15,7 +15,7 @@ const initialState = {
 };
 
 const UpdateUser = () => {
-  const { inputRef, setFocus } = useGlobalContext();
+  const { inputRef, setFocus, loading, setLoading } = useGlobalContext();
   const [editedUser, setEditedUser] = useState(initialState);
   const { userId } = useParams();
   const navigate = useNavigate();
@@ -24,16 +24,20 @@ const UpdateUser = () => {
     const response = await GetSingleUser(userId);
     setEditedUser(response);
   };
+
   const handleEditUser = async () => {
+    setLoading(true);
     await EditUsers(userId, editedUser);
     setEditedUser(initialState);
     toast.success("User added successfully!", {
       autoClose: 1000,
     });
+    setLoading(false);
     setTimeout(() => {
       navigate(ROUTER.Home);
     }, 1500);
   };
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setEditedUser({
@@ -94,7 +98,7 @@ const UpdateUser = () => {
         </div>
 
         <Button className="m-2 px-4" onClick={handleEditUser}>
-          Edit User
+          {loading ? "Loading..." : "Submit"}
         </Button>
       </div>
     </div>

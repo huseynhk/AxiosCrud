@@ -5,6 +5,7 @@ import NavBar from "./components/NavBar"
 import AddUser from "./components/AddUser";
 import Detail from "./components/Detail";
 import UpdateUser from "./components/UpdateUser";
+import Error from "./components/Error";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

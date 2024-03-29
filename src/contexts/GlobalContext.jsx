@@ -1,15 +1,19 @@
-import  { createContext, useContext, useRef, useState } from "react";
+import { createContext, useContext, useRef, useState } from "react";
 
 const GlobalContext = createContext();
 
 const GlobalContextProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   // Edit Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editedItem, setEditedItem] = useState(null);
+  
   // Delete Modal
   const [show, setShow] = useState(false);
   const [deletedItem, setDeletedItem] = useState(null);
+
 
   const inputRef = useRef(null);
   const setFocus = () => {
@@ -68,8 +72,6 @@ const GlobalContextProvider = ({ children }) => {
     setUsers(sortedUsers);
   };
 
-
-
   const contextValue = {
     inputRef,
     setFocus,
@@ -88,6 +90,8 @@ const GlobalContextProvider = ({ children }) => {
     setUsers,
     handleSortUsers,
     handleSortUsersButtons,
+    loading,
+    setLoading,
   };
   const Component = GlobalContext.Provider;
   return <Component value={contextValue}>{children}</Component>;
