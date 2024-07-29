@@ -2,10 +2,14 @@ import { useState } from "react";
 import { EditUsers } from "../api/editRequst";
 import { Modal, Form, Button } from "react-bootstrap";
 import { useGlobalContext } from "../contexts/GlobalContext";
+import useForm from "../utils/useForm";
+import { isInputFilled } from "../utils/IsInputFill";
 
 const EditUser = () => {
   const { isModalOpen, editedItem, closeModal, loading, setLoading } =
     useGlobalContext();
+  //const [editedUser, handleInputChange] = useForm(editedItem); // custom hook ile
+
   const [editedUser, setEditedUser] = useState(editedItem);
 
   const handleInputChange = (event) => {
@@ -19,14 +23,14 @@ const EditUser = () => {
   const updateUser = async () => {
     setLoading(true);
     await EditUsers(editedUser.id, editedUser);
-    setLoading(false);
     setTimeout(() => {
+      setLoading(false);
       closeModal();
-    }, 500);
+    }, 1500);
   };
 
   return (
-    <div>
+    <>
       <Modal show={isModalOpen} onHide={closeModal}>
         <Modal.Header closeButton>
           <Modal.Title>Edit User</Modal.Title>
@@ -74,12 +78,20 @@ const EditUser = () => {
           </Form>
         </Modal.Body>
         <Modal.Footer className="d-flex justify-content-center align-items-center">
-          <Button variant="primary" className="py-2 px-5" onClick={updateUser}>
+          <Button
+            variant="primary"
+            className="py-2 px-5"
+            onClick={updateUser}
+            disabled={!isInputFilled(editedUser)}
+            style={{
+              pointerEvents: isInputFilled(editedUser) ? "auto" : "none",
+            }}
+          >
             {loading ? "Loading..." : "Submit"}
           </Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </>
   );
 };
 

@@ -6,6 +6,8 @@ import { EditUsers } from "../api/editRequst";
 import { GetSingleUser } from "../api/getRequest";
 import { toast } from "react-toastify";
 import { useGlobalContext } from "../contexts/GlobalContext";
+import useForm from "../utils/useForm";
+import { isInputFilled } from "../utils/IsInputFill";
 
 const initialState = {
   fullName: "",
@@ -19,6 +21,8 @@ const UpdateUser = () => {
   const [editedUser, setEditedUser] = useState(initialState);
   const { userId } = useParams();
   const navigate = useNavigate();
+  // const [editedUser, handleInputChange, resetForm, setEditedUser] =
+  //   useForm(initialState); //custom hook ile
 
   const fetchUser = async () => {
     const response = await GetSingleUser(userId);
@@ -29,11 +33,12 @@ const UpdateUser = () => {
     setLoading(true);
     await EditUsers(userId, editedUser);
     setEditedUser(initialState);
+    //resetForm(); //custom hook ile
     toast.success("User added successfully!", {
       autoClose: 1000,
     });
-    setLoading(false);
     setTimeout(() => {
+      setLoading(false);
       navigate(ROUTER.Home);
     }, 1500);
   };
@@ -97,7 +102,14 @@ const UpdateUser = () => {
           />
         </div>
 
-        <Button className="m-2 px-4" onClick={handleEditUser}>
+        <Button
+          className="m-2 px-4 w-75"
+          onClick={handleEditUser}
+          disabled={!isInputFilled(editedUser)}
+          style={{
+            pointerEvents: isInputFilled(editedUser) ? "auto" : "none",
+          }}
+        >
           {loading ? "Loading..." : "Submit"}
         </Button>
       </div>

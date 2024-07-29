@@ -5,6 +5,8 @@ import { ROUTER } from "../constant/Router";
 import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useGlobalContext } from "../contexts/GlobalContext";
+import useForm from "../utils/useForm";
+import { isInputFilled } from "../utils/IsInputFill";
 
 const initialState = {
   fullName: "",
@@ -18,15 +20,19 @@ const AddUser = () => {
   const [newUser, setNewUser] = useState(initialState);
   const navigate = useNavigate();
 
+  // const [newUser, handleInputChange, resetForm] =
+  // useForm(initialState); // custom hook ile
+
   const handleAddUser = async () => {
     setLoading(true);
     await AddUsers(newUser);
     setNewUser(initialState);
+    // resetForm(); // custom hook ile
     toast.success("User added successfully!", {
       autoClose: 1000,
     });
-    setLoading(false);
     setTimeout(() => {
+      setLoading(false);
       navigate(ROUTER.Home);
     }, 1500);
   };
@@ -90,8 +96,15 @@ const AddUser = () => {
             />
           </div>
 
-          <Button className="my-3 px-5 py-2 fs-5" onClick={handleAddUser}>
-            {loading ? 'Loading...' : 'Submit'}
+          <Button
+            className="my-3 px-5 py-2 fs-5 w-75"
+            onClick={handleAddUser}
+            disabled={!isInputFilled(newUser)}
+            style={{
+              pointerEvents: isInputFilled(newUser) ? "auto" : "none",
+            }}
+          >
+            {loading ? "Loading..." : "Submit"}
           </Button>
         </div>
       </div>
