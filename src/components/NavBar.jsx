@@ -6,6 +6,8 @@ import { activeLink } from "../utils/ActiveLink";
 const NavBar = () => {
   const { pathname } = useLocation();
 
+
+  
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary py-3">
