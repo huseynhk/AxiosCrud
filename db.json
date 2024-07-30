@@ -9,7 +9,7 @@
     },
     {
       "fullName": "Abbas",
-      "age": "55",
+      "age": "44",
       "email": "kim@1905",
       "position": "Design",
       "id": 2
@@ -43,18 +43,11 @@
       "id": 6
     },
     {
-      "fullName": "tt",
+      "fullName": "zaxa",
       "age": "66",
       "email": "tt",
       "position": "tt",
       "id": 8
-    },
-    {
-      "fullName": "rr",
-      "age": "44",
-      "email": "rr",
-      "position": "rr",
-      "id": 9
     }
   ]
 }

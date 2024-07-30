@@ -6,8 +6,9 @@ import { EditUsers } from "../api/editRequst";
 import { GetSingleUser } from "../api/getRequest";
 import { toast } from "react-toastify";
 import { useGlobalContext } from "../contexts/GlobalContext";
-import useForm from "../utils/useForm";
+import useForm from "../hooks/UseForm";
 import { isInputFilled } from "../utils/IsInputFill";
+import useFetchUser from "../hooks/GetSingleUser";
 
 const initialState = {
   fullName: "",
@@ -23,6 +24,7 @@ const UpdateUser = () => {
   const navigate = useNavigate();
   // const [editedUser, handleInputChange, resetForm, setEditedUser] =
   //   useForm(initialState); //custom hook ile
+  // const { user } = useFetchUser(userId);
 
   const fetchUser = async () => {
     const response = await GetSingleUser(userId);
@@ -55,6 +57,19 @@ const UpdateUser = () => {
     fetchUser();
     setFocus();
   }, []);
+
+
+  //custom hook ile
+
+  // useEffect(() => {
+  //   if (user) {
+  //     setEditedUser(user);
+  //   }
+  // }, [user, setEditedUser]);
+
+  // useEffect(() => {
+  //   setFocus();
+  // }, [setFocus]);
 
   return (
     <div className="d-flex justify-content-center align-items-center flex-column ">

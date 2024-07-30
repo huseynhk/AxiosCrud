@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import { GetSingleUser } from "../api/getRequest";
 import { useParams } from "react-router-dom";
 import { Card, Container, Row, Col } from "react-bootstrap";
+import useFetchUser from "../hooks/GetSingleUser";
 
 const Detail = () => {
-  const [user, setUser] = useState("");
   const { userId } = useParams();
 
+  const [user, setUser] = useState("");
   const fetchUser = async () => {
     const response = await GetSingleUser(userId);
     setUser(response);
@@ -15,6 +16,12 @@ const Detail = () => {
   useEffect(() => {
     fetchUser();
   }, []);
+
+  // const { user } = useFetchUser(userId);
+
+  // if (!user) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <div>
@@ -26,7 +33,7 @@ const Detail = () => {
                 <Card.Text>
                   <div className="d-flex justify-content-center align-items-center flex-column">
                     <Card.Title className="mb-3 text-muted fs-1">
-                      <strong>{user.fullName}`s   Datas</strong>
+                      <strong>{user.fullName}`s Datas</strong>
                     </Card.Title>
 
                     <div>

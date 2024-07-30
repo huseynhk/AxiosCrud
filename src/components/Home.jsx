@@ -1,4 +1,4 @@
-import  {  useEffect } from "react";
+import { useEffect } from "react";
 import { GetUsers } from "../api/getRequest";
 import EditUser from "./EditUser";
 import { Link } from "react-router-dom";
@@ -7,6 +7,7 @@ import { DeleteUser } from "../api/deleteRequest";
 import { toast } from "react-toastify";
 import { useGlobalContext } from "../contexts/GlobalContext";
 import DeleteModal from "./DeleteModal";
+import useGetUser from "../hooks/GetUser";
 
 const Home = () => {
   const {
@@ -21,17 +22,11 @@ const Home = () => {
     handleSortUsersButtons,
   } = useGlobalContext();
 
+  // const { user , fetchUsers } = useGetUser();
+
   const fetchUsers = async () => {
     const response = await GetUsers();
     setUsers(response);
-  };
-  const deleteUser = async (userId) => {
-    await DeleteUser(userId);
-    fetchUsers();
-    toast.success("User deleted successfully!", {
-      autoClose: 1000,
-    });
-    closeDeleteModal();
   };
 
   const resetSortedData = async () => {
@@ -42,6 +37,14 @@ const Home = () => {
     fetchUsers();
   }, [isModalOpen]);
 
+  const deleteUser = async (userId) => {
+    await DeleteUser(userId);
+    fetchUsers();
+    toast.success("User deleted successfully!", {
+      autoClose: 1000,
+    });
+    closeDeleteModal();
+  };
   return (
     <>
       <div className="d-flex justify-content-center align-items-center flex-column">

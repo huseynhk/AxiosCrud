@@ -2,7 +2,7 @@ import { useState } from "react";
 import { EditUsers } from "../api/editRequst";
 import { Modal, Form, Button } from "react-bootstrap";
 import { useGlobalContext } from "../contexts/GlobalContext";
-import useForm from "../utils/useForm";
+import useForm from "../hooks/UseForm";
 import { isInputFilled } from "../utils/IsInputFill";
 
 const EditUser = () => {
